@@ -1,6 +1,7 @@
 require "sinatra"
 require "sinatra/reloader"
 require "http"
+require "dotenv"
 
 # define a route for the homepage
 get("/") do
