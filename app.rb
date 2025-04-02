@@ -7,7 +7,7 @@ require "dotenv"
 get("/") do
 
   # Assemble the API url, including the API key in the query string
-  api_url = "https://api.exchangerate.host/list?access_key=#{ENV.fetch("EXCHANGE_RATE_KEY")}"
+  api_url = "http://api.exchangerate.host/list?access_key=#{ENV.fetch("EXCHANGE_RATE_KEY")}"
 
   # Use HTTP.get to retrieve the API data
   @raw_response = HTTP.get(api_url)
@@ -37,7 +37,11 @@ get("/:from_currency") do
   @original_currency = params.fetch("from_currency")
 
   api_url = "https://api.exchangerate.host/list?access_key=#{ENV.fetch("EXCHANGE_RATE_KEY")}"
+  @raw_response = HTTP.get(api_url)
+  @raw_string = @raw_response.to_s
+  @parsed_data = JSON.parse(@raw_string)
   
+  erb(:from)
   # Some more code to parse the URL and render a view template.
   # (HINT: this code is identical to the first route, you just
   # render a different view template at the end.)
@@ -48,6 +52,10 @@ get("/:from_currency/:to_currency") do
   @destination_currency = params.fetch("to_currency")
 
   api_url = "https://api.exchangerate.host/convert?access_key=#{ENV.fetch("EXCHANGE_RATE_KEY")}&from=#{@original_currency}&to=#{@destination_currency}&amount=1"
+  @raw_response = HTTP.get(api_url)
+  @raw_string = @raw_response.to_s
+  @parsed_data = JSON.parse(@raw_string)
   
+  erb(:from_to)
   # Some more code to parse the URL and render a view template.
 end
