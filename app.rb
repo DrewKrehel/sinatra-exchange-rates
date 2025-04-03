@@ -17,6 +17,8 @@ get("/") do
 
   # Convert the string to JSON
   @parsed_data = JSON.parse(@raw_string)
+  @currency_list = @parsed_data.fetch("currencies")
+  @AKA_list = @currency_list.keys
 
   # Render a view template
   erb(:homepage)
@@ -40,7 +42,9 @@ get("/:from_currency") do
   @raw_response = HTTP.get(api_url)
   @raw_string = @raw_response.to_s
   @parsed_data = JSON.parse(@raw_string)
-  
+  @currency_list = @parsed_data.fetch("currencies")
+  @AKA_list = @currency_list.keys
+
   erb(:from)
   # Some more code to parse the URL and render a view template.
   # (HINT: this code is identical to the first route, you just
@@ -55,7 +59,8 @@ get("/:from_currency/:to_currency") do
   @raw_response = HTTP.get(api_url)
   @raw_string = @raw_response.to_s
   @parsed_data = JSON.parse(@raw_string)
-  
+  @convert = @parsed_data.fetch("result")
+
   erb(:from_to)
   # Some more code to parse the URL and render a view template.
 end

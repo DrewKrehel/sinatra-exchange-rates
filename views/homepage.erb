@@ -1,8 +1,9 @@
 <h1>Currency pairs</h1>
 
-<!--<ul>-->
-  <%# @currency.each do |a_link| %>
-<!--  <li><a href="/<%= a_link %>">Convert 1 <%#= a_link %> to...</a></li>-->
-  <%# end %>
-<!--</ul>-->
-<%= @parsed_data %>
+<ul>
+  <% @AKA_list.each do |a_link| %>
+  <li><a href="/<%= a_link %>">Convert 1 <%= a_link %> to...</a></li>
+  <% end %>
+</ul>
+
+<%#= @parsed_data %>
